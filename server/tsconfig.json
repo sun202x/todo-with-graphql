@@ -2,6 +2,9 @@
   "ts-node": {
     "files": true
   },
+  "files": ["src/@types/graphql.d.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
@@ -102,8 +105,5 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  },
-  "files": ["@types/graphql.d.ts"],
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  }
 }

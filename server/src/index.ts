@@ -3,9 +3,13 @@ import resolvers from './resolver';
 import { config } from 'dotenv';
 import { MongoClient, Db } from 'mongodb';
 
+export type gqlContext = {
+  db: Db;
+};
+
 async function startAsync() {
 
-    // 환경설정 사용
+    // 환경변수 사용
     config();
     
     const MONGO_DB = process.env.DB_HOST;
@@ -13,9 +17,7 @@ async function startAsync() {
     
     try {
         if (MONGO_DB) {
-            const client = await MongoClient.connect(MONGO_DB, {
-                
-            });
+            const client = await MongoClient.connect(MONGO_DB, { });
             db = client.db();
         }
 

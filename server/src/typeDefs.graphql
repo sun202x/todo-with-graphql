@@ -1,4 +1,22 @@
 
+type Todo {
+    id: ID!
+    title: String!
+    contents: String!
+}
+
+input TodoInput {
+    title: String!
+    contents: String!
+}
+
 type Query {
-    callMe: String!
+    getAllTodos: [Todo!]
+}
+
+type Mutation {
+    addSomeTodo: Todo!
+    addTodo(input: TodoInput!): Todo!
+    replaceTodo(input: TodoInput!): Todo!
+    deleteTodo(id: String!): String!
 }

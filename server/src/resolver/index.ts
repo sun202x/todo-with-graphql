@@ -1,8 +1,9 @@
-
-const Query = {
-    callMe: () => "hi! I'm a test!"
-};
+import Query from './query';
+import Mutation from './mutation';
+import Type from './type';
 
 export default {
-    Query
+    Query,
+    Mutation,
+    ...Type
 };
