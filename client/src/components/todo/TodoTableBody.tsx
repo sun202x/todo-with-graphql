@@ -1,13 +1,14 @@
 import { Checkbox, Link, TableBody, TableCell, TableRow } from "@mui/material";
 import React from "react";
-import useGetAllTodos from "../../query/useGetAllTodos";
+import { useRecoilValue } from "recoil";
+import { allTodosQuery } from "../../store";
 
 type TodoTableBodyProps = {
 
 };
 
 const TodoTableBody = (props: TodoTableBodyProps) => {
-    const data = useGetAllTodos();
+    const allTodos = useRecoilValue(allTodosQuery);
 
     const handleOpenRegister = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
@@ -15,7 +16,7 @@ const TodoTableBody = (props: TodoTableBodyProps) => {
 
     return (
         <TableBody>
-            {data.allTodos.map(({ id, title, contents, priority, done }) => (
+            {allTodos.map(({ id, title, contents, priority, done }) => (
                 <TableRow key={id}>
                     <TableCell padding="checkbox">
                         <Checkbox

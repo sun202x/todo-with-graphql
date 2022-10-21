@@ -1,14 +1,17 @@
 import { Suspense } from 'react';
 import { ErrorBoundary } from "react-error-boundary";
-import { RelayEnvironmentProvider } from 'react-relay/hooks';
-import RelayEnvironment from './RelayEnvironment';
-import TodoPage from './components/page';
 import { RecoilRoot } from 'recoil';
+import { RecoilRelayEnvironmentProvider } from 'recoil-relay';
+import RelayEnvironment, { environmentKey } from './RelayEnvironment';
+import TodoPage from './components/page';
 
 function App() {
   return (
     <RecoilRoot>
-      <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <RecoilRelayEnvironmentProvider
+        environment={RelayEnvironment}
+        environmentKey={environmentKey}
+      >
         <ErrorBoundary fallbackRender={({ error }) => <div>{error.message}</div>}>
           <Suspense fallback={'Loading...'}>
             <div className="app">
@@ -16,7 +19,7 @@ function App() {
             </div>
           </Suspense>
         </ErrorBoundary>
-      </RelayEnvironmentProvider>
+      </RecoilRelayEnvironmentProvider>
     </RecoilRoot>
   );
 }

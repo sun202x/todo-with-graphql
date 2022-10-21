@@ -1,4 +1,5 @@
 // your-app-name/src/RelayEnvironment.js
+import { EnvironmentKey } from 'recoil-relay';
 import { Environment, Network, RecordSource, RequestParameters, Store, Variables } from 'relay-runtime';
 import fetchGraphQL from './fetchGraphQL';
 
@@ -8,6 +9,8 @@ async function fetchRelay(params: RequestParameters, variables: Variables) {
     console.log(`fetching query ${params.name} with ${JSON.stringify(variables)}`);
     return fetchGraphQL(params, variables);
 }
+
+export const environmentKey = new EnvironmentKey('RelayEnvironment');
 
 // Export a singleton instance of Relay Environment configured with our network function:
 export default new Environment({

@@ -1,4 +1,4 @@
-import { atomFamily } from "recoil";
+import { atom, atomFamily } from "recoil";
 
 export const todoState = atomFamily({
     key: 'todoState',
@@ -9,4 +9,9 @@ export const todoState = atomFamily({
         priority: 1,
         done: false
     })
+});
+
+export const todoIdsState = atom<any[]>({
+    key: 'todoIdsState',
+    default: []
 });

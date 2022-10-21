@@ -1,8 +1,8 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import React, { useRef } from "react";
-import { useRecoilState } from "recoil";
-import { todoState } from "../../store/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import RegisterDialogContent from "./RegisterDialogContent";
+import { todosSelector, todoState } from '../../store';
 
 type RegisterDialogProps = {
     open?: boolean;
@@ -11,7 +11,7 @@ type RegisterDialogProps = {
 
 const RegisterDialog = (props: RegisterDialogProps) => {
     const _id = useRef(Date.now());
-    const [todo, setTodo] = useRecoilState(todoState(_id.current));
+    const [todo, setTodo] = useRecoilState(todosSelector(_id.current));
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTodo({
