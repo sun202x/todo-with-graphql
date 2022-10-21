@@ -10,7 +10,9 @@ const Mutation = {
 
         const sampleTodo: Todo = {
             title: `sample todo${count}`,
-            contents: `This is a sample todo${count}`
+            contents: `This is a sample todo${count}`,
+            priority: 1,
+            done: false
         };
             
         const { insertedId } = await todos.insertOne(sampleTodo);

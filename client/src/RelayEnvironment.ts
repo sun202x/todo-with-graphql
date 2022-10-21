@@ -6,7 +6,7 @@ import fetchGraphQL from './fetchGraphQL';
 // to call our fetchGraphQL utility with params.text.
 async function fetchRelay(params: RequestParameters, variables: Variables) {
     console.log(`fetching query ${params.name} with ${JSON.stringify(variables)}`);
-    return fetchGraphQL(params.text, variables);
+    return fetchGraphQL(params, variables);
 }
 
 // Export a singleton instance of Relay Environment configured with our network function:

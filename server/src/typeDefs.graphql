@@ -2,7 +2,9 @@
 type Todo {
     id: ID!
     title: String!
-    contents: String!
+    contents: String
+    priority: Int!
+    done: Boolean!
 }
 
 input TodoInput {
@@ -11,7 +13,8 @@ input TodoInput {
 }
 
 type Query {
-    getAllTodos: [Todo!]
+    callMe: String!
+    allTodos: [Todo!]
 }
 
 type Mutation {
