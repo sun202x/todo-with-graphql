@@ -1,19 +1,3 @@
-import { Box } from "@mui/material";
-import React from "react";
-import Footer from "../footer";
-import TodoTable from "../todo/TodoTable";
+import TodoPage from "./TodoPage";
 
-const TodoPage = (props: any) => {
-
-    return (
-        <Box padding="2rem">
-            <TodoTable>
-                <TodoTable.Head />
-                <TodoTable.Body />
-            </TodoTable>
-            <Footer />
-        </Box>
-    );
-}
-
-export default React.memo(TodoPage);
+export default TodoPage;

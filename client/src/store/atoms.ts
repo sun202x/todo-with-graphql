@@ -1,17 +1,23 @@
 import { atom, atomFamily } from "recoil";
+import { Todo } from "./queries";
 
-export const todoState = atomFamily({
+export const todoState = atom<Todo>({
     key: 'todoState',
-    default: (id) => ({
-        id: id,
+    default: {
+        id: '',
         title: '',
         contents: '',
         priority: 1,
         done: false
-    })
+    }
 });
 
-export const todoIdsState = atom<any[]>({
-    key: 'todoIdsState',
-    default: []
+export const dialogOpenState = atom({
+    key: 'dialogOpenState',
+    default: false
+});
+
+export const currentEditIdState = atom<string>({
+    key: 'currentEditIdState',
+    default: ''
 });

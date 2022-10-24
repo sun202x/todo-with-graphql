@@ -1,17 +1,17 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import React, { useRef } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import React, { useEffect, useState } from "react";
+import useTodoState from "./hooks/useTodoState";
 import RegisterDialogContent from "./RegisterDialogContent";
-import { todosSelector, todoState } from '../../store';
 
 type RegisterDialogProps = {
+    id?: string;
     open?: boolean;
     onClose?: (event: any, reason?: "backdropClick" | "escapeKeyDown") => void;
 };
 
 const RegisterDialog = (props: RegisterDialogProps) => {
-    const _id = useRef(Date.now());
-    const [todo, setTodo] = useRecoilState(todosSelector(_id.current));
+    const [id, setId] = useState('');
+    const [todo, setTodo] = useTodoState(id);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTodo({
@@ -26,17 +26,25 @@ const RegisterDialog = (props: RegisterDialogProps) => {
         });
     }
     const handleSliderChange = (event: any, newValue: number | number[]) => {
-        const priority = Array.isArray(newValue) ? newValue[0] : newValue;
         setTodo({
             ...todo,
-            priority
+            priority: Array.isArray(newValue) 
+                ? newValue[0] 
+                : newValue
         });
     }
 
     const handleRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
-        console.log(todo);
         debugger;
+        props.onClose?.({});
     }
+
+    useEffect(() => {
+        if (props.open === true) {
+            setId(props.id || Date.now().toString());
+        }
+
+    }, [props.open]);
 
     return (
         <Dialog
@@ -46,7 +54,8 @@ const RegisterDialog = (props: RegisterDialogProps) => {
             fullWidth
         >
             <DialogTitle>Todo 작성</DialogTitle>
-            <RegisterDialogContent 
+            <RegisterDialogContent
+                todo={todo} 
                 handleTitleChange={handleTitleChange}
                 handleContentsChange={handleContentsChange}
                 handleSliderChange={handleSliderChange}
@@ -56,7 +65,7 @@ const RegisterDialog = (props: RegisterDialogProps) => {
                     취소
                 </Button>
                 <Button onClick={handleRegister} color="primary">
-                    등록
+                    {props.id ? '수정' : '등록'}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -1,14 +1,10 @@
 import { selectorFamily } from "recoil";
-import { todoIdsState, todoState } from "./atoms";
+import { allTodosQuery } from "./queries";
 
-export const todosSelector = selectorFamily({
-    key: 'todosSelector',
-    get: (id) => ({ get }) => {
-        const atom = get(todoState(id));
-        return atom;
-    },
-    set: (id) => ({ set }, todo) => {
-        set(todoState(id), todo);
-        set(todoIdsState, prev => [ ...prev, id ]);
-    } 
+export const todoDataSelector = selectorFamily({
+    key: 'todoDataSelector',
+    get: (id: string) => ({ get }) => {
+        const allTodos = get(allTodosQuery);
+        return allTodos.find(({ id: _id }) => _id === id);
+    }
 });
