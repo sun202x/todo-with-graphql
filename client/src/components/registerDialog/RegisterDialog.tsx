@@ -11,7 +11,7 @@ type RegisterDialogProps = {
 
 const RegisterDialog = (props: RegisterDialogProps) => {
     const [id, setId] = useState('');
-    const [todo, setTodo] = useTodoState(id);
+    const [todo, setTodo, registerTodo] = useTodoState(id);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTodo({
@@ -36,6 +36,7 @@ const RegisterDialog = (props: RegisterDialogProps) => {
 
     const handleRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
         debugger;
+        registerTodo(todo);
         props.onClose?.({});
     }
 
@@ -43,7 +44,6 @@ const RegisterDialog = (props: RegisterDialogProps) => {
         if (props.open === true) {
             setId(props.id || Date.now().toString());
         }
-
     }, [props.open]);
 
     return (

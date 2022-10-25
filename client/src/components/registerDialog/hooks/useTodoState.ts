@@ -1,21 +1,24 @@
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { Todo, todoDataSelector, todoState } from "../../../store";
+import { SetterOrUpdater, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { addTodoMutation, Todo, todoDataSelector, todoState } from "../../../store";
 
 type ReturnType = [
     Todo, 
-    React.Dispatch<React.SetStateAction<Todo>>
+    React.Dispatch<React.SetStateAction<Todo>>,
+    SetterOrUpdater<Todo>
 ];
 
 const useTodoState = (id: string): ReturnType => {
     const todoData = useRecoilValue(todoDataSelector(id));
+    const addTodo = useSetRecoilState(addTodoMutation(id));
     const [todo, setTodo] = useRecoilState(todoState);
 
     useEffect(() => {
-        todoData && setTodo(todoData);
+        const data = todoData ? todoData : todo;
+        setTodo({ ...data, id });
     }, [id]);
 
-    return [todo, setTodo];
+    return [todo, setTodo, addTodo];
 }
 
 export default useTodoState;
