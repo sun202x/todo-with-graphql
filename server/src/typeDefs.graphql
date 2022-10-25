@@ -10,10 +10,13 @@ type Todo {
 input TodoInput {
     title: String!
     contents: String!
+    done: Boolean!
+    priority: Int!
 }
 
 type Query {
     callMe: String!
+    todo(id: String!): Todo!
     allTodos: [Todo!]
 }
 
@@ -22,4 +25,8 @@ type Mutation {
     addTodo(input: TodoInput!): Todo!
     replaceTodo(input: TodoInput!): Todo!
     deleteTodo(id: String!): String!
+}
+
+type Subscription {
+    todoAdded: Todo!
 }

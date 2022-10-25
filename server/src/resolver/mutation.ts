@@ -21,11 +21,13 @@ const Mutation = {
         return sampleTodo;
     },
 
-    addTodo: async (parent: any, args: { input: Todo }, { db }: gqlContext) => {
+    addTodo: async (parent: any, args: { input: Todo }, { db, pubsub }: gqlContext) => {
         const newTodo = { ... args.input };
         const { insertedId } = await db.collection('todos').insertOne(newTodo);
 
         newTodo.id = insertedId;
+
+        pubsub.publish('todo-added', { todoAdded: newTodo });
 
         return newTodo;
     },
