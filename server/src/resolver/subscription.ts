@@ -5,6 +5,11 @@ const Subscription = {
         subscribe: (parent: any, args: any, { pubsub }: gqlContext) => {
             return pubsub.asyncIterator(['todo-added']);
         }
+    },
+    todoDeleted: {
+        subscribe: (parent: any, args: any, { pubsub }: gqlContext) => {
+            return pubsub.asyncIterator(['todo-deleted']);
+        }
     }
 };
 

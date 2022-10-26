@@ -41,11 +41,13 @@ const Mutation = {
         return await todos.findOne(filter);
     },
 
-    deleteTodo: async (parent: any, args: { id: string }, { db }: gqlContext) => {
+    deleteTodo: async (parent: any, args: { id: string }, { db, pubsub }: gqlContext) => {
         const todos = db.collection('todos');
         const filter = { _id: new ObjectId(args.id) };
 
         await todos.deleteOne(filter);
+
+        pubsub.publish('todo-added', { todoDeleted: args.id });
 
         return args.id;
     }

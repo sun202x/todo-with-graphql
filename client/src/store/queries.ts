@@ -69,17 +69,44 @@ export const addTodoMutation = graphQLSelectorFamily<{ id: string }, string, Tod
     },
 });
 
-// const allTodosSubscription = graphQLSelector({
-//     key: 'allTodosSubscription',
-//     environment: environmentKey,
-//     query: graphql`
-//       subscription UserSubscription($id: ID!) {
-//         user(id: $id) {
-//           name
-//           address
-//         }
-//       }
-//     `,
-//     variables: ({ get }) => ({ id: get(currentIDAtom) }),
-//     mapResponse: data => data.user,
-// });
+export const deleteTodoMutation = graphQLSelector({
+    key: 'deleteTodoMutation',
+    environment: environmentKey,
+    query: (graphql`
+        query queriesAfterDeleteQuery {
+            allTodos {
+                id,
+                title
+            }
+        }
+    ` as any).default,
+    variables: {},
+    mapResponse: data => data.allTodos,
+
+    mutations: {
+        mutation: graphql`
+            mutation queriesDeleteTodoMutation($id: String!) {
+                deleteTodo(id: $id)
+            }
+        `,
+        variables: id => ({ id }),
+    },
+});
+
+export const todoAddedSubscription = graphQLSelector({
+    key: 'todoAddedSubscription',
+    environment: environmentKey,
+    query: (graphql`
+        subscription queriesTodoAddedSubscription {
+            todoAdded {
+                id
+                title
+                contents
+                priority
+                done
+            }
+        }
+    ` as any).default,
+    variables: {},
+    mapResponse: data => data.todoAdded,
+});

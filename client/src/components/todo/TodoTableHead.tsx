@@ -43,6 +43,9 @@ const TodoTableHead = (props: TodoTableHead) => {
                         Priority
                     </TableSortLabel>
                 </TableCell>
+                <TableCell align="center">
+                    Delete
+                </TableCell>
             </TableRow>
         </TableHead>
     );

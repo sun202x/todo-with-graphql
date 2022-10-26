@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useResetRecoilState } from "recoil";
 import useTodoState from "./hooks/useTodoState";
 import RegisterDialogContent from "./RegisterDialogContent";
 
@@ -11,7 +12,7 @@ type RegisterDialogProps = {
 
 const RegisterDialog = (props: RegisterDialogProps) => {
     const [id, setId] = useState('');
-    const [todo, setTodo, registerTodo] = useTodoState(id);
+    const [todo, setTodo, resetTodo, registerTodo] = useTodoState(id);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTodo({
@@ -35,7 +36,6 @@ const RegisterDialog = (props: RegisterDialogProps) => {
     }
 
     const handleRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
-        debugger;
         registerTodo(todo);
         props.onClose?.({});
     }
@@ -43,6 +43,8 @@ const RegisterDialog = (props: RegisterDialogProps) => {
     useEffect(() => {
         if (props.open === true) {
             setId(props.id || Date.now().toString());
+        } else {
+            resetTodo();
         }
     }, [props.open]);
 
